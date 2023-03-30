@@ -9,22 +9,16 @@ import ScrollableBar from "./ui/ScrollableBar";
 
 function FollowingBar() {
   const { data, isLoading: loading, error } = useSWR<DetailUser>("/api/me");
-  const users = data?.following;
+  // const users = data?.following;
 
-  // const users = data?.following && [
-  //   ...data?.following,
-  //   ...data?.following,
-  //   ...data?.following,
-  //   ...data?.following,
-  //   ...data?.following,
-  // ];
+  const users = data?.following && [...data?.following, ...data?.following];
 
   //1. 클라이언트 컴포넌트에서 백엔드에게 api/me 사용자의 정보를 얻어옴
   //2. 백엔드에서는 현재 로그인된 사용자의 세션 정볼르 이용해서
   //3. 백엔드에서 사용자의 상세 정보를 sanity에서 가지고 옴
   //4. 여기에서, 클라이언트 컴포넌트에서 follwings의 정보를 ui에 보여줌
   return (
-    <section className="w-full flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[90px] overflow-x-auto">
+    <section className="w-full flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[90px] overflow-x-auto relative z-0">
       {loading ? (
         <PropagateLoader size={8} color="red" />
       ) : (
