@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
-
 import { SimplePost } from "@/model/post";
-import Avatar from "./Avatar";
-
-import CommentForm from "./CommentForm";
+import Image from "next/image";
+import { useState } from "react";
 import ActionBar from "./ActionBar";
+import CommentForm from "./CommentForm";
+
 import ModalPortal from "./ui/ModalPortal";
 import PostModal from "./ui/PostModal";
 import PostDetail from "./ui/PostDetail";
@@ -18,9 +16,10 @@ type Props = {
   priority?: boolean;
 };
 
-function PostListCard({ post, priority = false }: Props) {
+export default function PostListCard({ post, priority = false }: Props) {
   const { userImage, username, image, createdAt, likes, text } = post;
   const [openModal, setOpenModal] = useState(false);
+
   return (
     <article className="rounded-lg shadow-md border border-gray-200">
       <PostUserAvatar image={userImage} username={username} />
@@ -50,5 +49,3 @@ function PostListCard({ post, priority = false }: Props) {
     </article>
   );
 }
-
-export default PostListCard;
