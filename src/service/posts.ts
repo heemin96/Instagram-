@@ -6,7 +6,7 @@ const simplePostProjection = `
     "username": author->username,
     "userImage": author->image,
     "image": photo,
-    "likes": likes[]->username,
+    "likes": likes[]->username, 
     "text": comments[0].comment,
     "comments": count(comments),
     "id":_id,
@@ -75,6 +75,51 @@ export async function getSavedPostsOf(username: string) {
 function mapPosts(posts: SimplePost[]) {
   return posts.map((post: SimplePost) => ({
     ...post,
+    likes: post.likes ?? [],
     image: urlFor(post.image),
   }));
+}
+
+export async function likePost(postId: string, userId: string) {
+  return client
+    .patch(postId) //
+    .setIfMissing({ likes: [] })
+    .append("likes", [
+      {
+        _ref: userId,
+        _type: "reference",
+      },
+    ])
+    .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function dislikePost(postId: string, userId: string) {
+  return client
+    .patch(postId)
+    .unset([`likes[_ref=="${userId}"]`])
+    .commit();
+}
+
+export async function addComment(
+  postId: string,
+  userId: string,
+  comment: string
+) {
+  return client
+    .patch(postId) //
+    .setIfMissing({ likes: [] })
+    .append("comment", [
+      {
+        comment,
+        author: { _ref: userId, _type: "reference" },
+      },
+    ])
+    .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function removeComment(postId: string, userId: string) {
+  return client
+    .patch(postId)
+    .unset([`likes[_ref=="${userId}"]`])
+    .commit();
 }
