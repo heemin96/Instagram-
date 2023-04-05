@@ -1,3 +1,4 @@
+import post from "../../sanity-studio/schemas/post";
 import { SimplePost } from "./../model/post";
 import { client, urlFor } from "./sanity";
 
@@ -6,7 +7,7 @@ const simplePostProjection = `
     "username": author->username,
     "userImage": author->image,
     "image": photo,
-    "likes": likes[]->username, 
+    "likes": likes[]->username,
     "text": comments[0].comment,
     "comments": count(comments),
     "id":_id,
@@ -107,19 +108,12 @@ export async function addComment(
 ) {
   return client
     .patch(postId) //
-    .setIfMissing({ likes: [] })
-    .append("comment", [
+    .setIfMissing({ comments: [] })
+    .append("comments", [
       {
         comment,
         author: { _ref: userId, _type: "reference" },
       },
     ])
     .commit({ autoGenerateArrayKeys: true });
-}
-
-export async function removeComment(postId: string, userId: string) {
-  return client
-    .patch(postId)
-    .unset([`likes[_ref=="${userId}"]`])
-    .commit();
 }
