@@ -1,6 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-import UserSearch from "@/components/UserSearch";
+import UserSearch from "../../components/UserSearch";
 
 export const metadata: Metadata = {
   title: "User Search",

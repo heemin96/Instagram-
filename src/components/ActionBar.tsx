@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { parseDate } from "@/util/date";
 
 import HeartIcon from "./ui/icons/HeartIcon";
 import HeartFillIcon from "./ui/icons/HeartFillIcon";
 import BookmarkIcon from "./ui/icons/BookmarkIcon";
 import BookmarkFillIcon from "./ui/icons/BookmarkFillIcon";
-import ToggleButton from "./ToggleButton";
-import { SimplePost, Comment } from "@/model/post";
+import ToggleButton from "./ui/ToggleButton";
 
-import usePosts from "@/hooks/posts";
-import useMe from "@/hooks/me";
 import CommentForm from "./CommentForm";
+import { SimplePost } from "../model/post";
+
+import usePosts from "../hooks/posts";
+import { parseDate } from "../util/date";
+import useMe from "../hooks/me";
 
 type Props = {
   post: SimplePost;

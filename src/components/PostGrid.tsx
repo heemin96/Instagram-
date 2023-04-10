@@ -1,8 +1,7 @@
-import { SimplePost } from "@/model/post";
 import useSWR from "swr";
 import PostGridCard from "./PostGridCard";
 import GridSpinner from "./ui/GridSpinner";
-import usePosts from "@/hooks/posts";
+import usePosts from "../hooks/posts";
 
 type Props = {
   username: string;

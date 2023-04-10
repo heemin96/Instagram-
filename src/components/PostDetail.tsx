@@ -1,12 +1,12 @@
-import { SimplePost } from "@/model/post";
 import Image from "next/image";
 import React from "react";
 
 import PostUserAvatar from "./PostUserAvatar";
-import ActionBar from "../ActionBar";
+import ActionBar from "./ActionBar";
 
-import Avatar from "../Avatar";
-import useFullPost from "@/hooks/post";
+import Avatar from "./Avatar";
+import { SimplePost } from "../model/post";
+import useFullPost from "../hooks/post";
 
 type Props = {
   post: SimplePost;

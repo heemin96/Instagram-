@@ -63,8 +63,8 @@ export default {
       const {title, authorName, authorUsername, media} = selection
       return {
         title,
+        subtitle: `by ${authorName} (${authorUsername})`,
         media,
-        subtitle: `by ${authorUsername} (${authorName})`,
       }
     },
   },

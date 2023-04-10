@@ -37,7 +37,7 @@ export default {
     },
     {
       title: 'Followers',
-      name: 'follwers',
+      name: 'followers',
       type: 'array',
       of: [
         {
@@ -48,13 +48,13 @@ export default {
       validation: (Rule) => Rule.unique(),
     },
     {
-      title: 'Bookmarsk',
+      title: 'Bookmarks',
       name: 'bookmarks',
       type: 'array',
       of: [
         {
           type: 'reference',
-          to: [{type: 'user'}],
+          to: [{type: 'post'}],
         },
       ],
       validation: (Rule) => Rule.unique(),

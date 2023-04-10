@@ -4,7 +4,7 @@ import Link from "next/link";
 import { PropagateLoader } from "react-spinners";
 import Avatar from "./Avatar";
 import ScrollableBar from "./ui/ScrollableBar";
-import useMe from "@/hooks/me";
+import useMe from "../hooks/me";
 
 function FollowingBar() {
   const { user, isLoading: loading, error } = useMe();

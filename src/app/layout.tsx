@@ -1,17 +1,19 @@
 import "./globals.css";
 import { Open_Sans } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import AuthContext from "@/context/AuthContext";
-import SWRConfigContext from "@/context/SWRConfigContext";
+
+import { Metadata } from "next";
+import AuthContext from "../context/AuthContext";
+import Navbar from "../components/Navbar";
+import SWRConfigContext from "../context/SWRConfigContext";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
-    default: "InstantGram",
-    template: "Instantgram || %s ",
+    default: "Instantgram",
+    template: "Instantgram | %s",
   },
-  description: "Instantgram Photos ",
+  description: "Instantgram Photos",
 };
 
 export default function RootLayout({
@@ -29,7 +31,7 @@ export default function RootLayout({
             </div>
           </header>
           <main className="w-full flex justify-center max-w-screen-xl mx-auto">
-            <SWRConfigContext>{children} </SWRConfigContext>
+            <SWRConfigContext>{children}</SWRConfigContext>
           </main>
         </AuthContext>
         <div id="portal" />

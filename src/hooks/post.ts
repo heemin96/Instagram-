@@ -1,5 +1,5 @@
-import { useCallback } from "react";
 import { Comment, FullPost } from "@/model/post";
+import { useCallback } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
 async function addComment(id: string, comment: string) {
@@ -18,10 +18,10 @@ export default function useFullPost(postId: string) {
   } = useSWR<FullPost>(`/api/posts/${postId}`);
 
   const { mutate: globalMutate } = useSWRConfig();
+
   const postComment = useCallback(
     (comment: Comment) => {
       if (!post) return;
-
       const newPost = {
         ...post,
         comments: [...post.comments, comment],

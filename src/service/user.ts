@@ -1,4 +1,4 @@
-import { SearchUser } from "@/model/user";
+import { SearchUser } from "../model/user";
 import { client } from "./sanity";
 
 type OAuthUser = {
@@ -37,15 +37,14 @@ export async function getUserByUsername(username: string) {
 
 export async function searchUsers(keyword?: string) {
   const query = keyword
-    ? `&&(name match "${keyword}") || (username match "${keyword}")`
+    ? `&& (name match "${keyword}") || (username match "${keyword}")`
     : "";
-
   return client
     .fetch(
       `*[_type =="user" ${query}]{
       ...,
-      "following":count(following),
-      "followers":count(followers),
+      "following": count(following),
+      "followers": count(followers),
     }
     `
     )
@@ -61,13 +60,14 @@ export async function searchUsers(keyword?: string) {
 export async function getUserForProfile(username: string) {
   return client
     .fetch(
-      `*[_type =="user" && username == "${username}"][0]{
-    ...,
-    "id":_id,
-    "following":count(following),
-    "followers":count(followers),
-    "posts": count(*[_type=="post" && author -> username =="${username}"])
-  }`
+      `*[_type == "user" && username == "${username}"][0]{
+      ...,
+      "id":_id,
+      "following": count(following),
+      "followers": count(followers),
+      "posts": count(*[_type=="post" && author->username == "${username}"])
+    }
+    `
     )
     .then((user) => ({
       ...user,
@@ -93,13 +93,13 @@ export async function addBookmark(userId: string, postId: string) {
 export async function removeBookmark(userId: string, postId: string) {
   return client
     .patch(userId)
-    .unset([`likes[_ref=="${postId}"]`])
+    .unset([`bookmarks[_ref=="${postId}"]`])
     .commit();
 }
 
 export async function follow(myId: string, targetId: string) {
   return client
-    .transaction()
+    .transaction() //
     .patch(myId, (user) =>
       user
         .setIfMissing({ following: [] })
@@ -115,8 +115,8 @@ export async function follow(myId: string, targetId: string) {
 
 export async function unfollow(myId: string, targetId: string) {
   return client
-    .transaction()
+    .transaction() //
     .patch(myId, (user) => user.unset([`following[_ref=="${targetId}"]`]))
-    .patch(targetId, (user) => user.unset([` followers[_ref=="${myId}"]`]))
+    .patch(targetId, (user) => user.unset([`followers[_ref=="${myId}"]`]))
     .commit({ autoGenerateArrayKeys: true });
 }

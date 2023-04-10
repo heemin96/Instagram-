@@ -1,11 +1,11 @@
 "use client";
 
-import { SearchUser } from "@/model/user";
 import React, { useState, FormEvent } from "react";
 import useSWR from "swr";
 import GridSpinner from "./ui/GridSpinner";
 import UserCard from "./UserCard";
-import useDebounce from "@/hooks/debounc";
+import useDebounce from "../hooks/debounc";
+import { SearchUser } from "../model/user";
 
 function UserSearch() {
   const [keyword, setKeyword] = useState("");

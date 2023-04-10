@@ -1,9 +1,9 @@
-import UserPosts from "@/components/UserPosts";
-import UserProfile from "@/components/UserProfile";
-import { getUserForProfile } from "@/service/user";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { cache } from "react";
+import UserProfile from "../../../components/UserProfile";
+import UserPosts from "../../../components/UserPosts";
+import { getUserForProfile } from "../../../service/user";
 
 type Props = { params: { username: string } };
 

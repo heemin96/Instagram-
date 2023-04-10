@@ -1,10 +1,11 @@
 "use client";
-import useMe from "@/hooks/me";
-import { ProfileUser } from "@/model/user";
+
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { PulseLoader } from "react-spinners";
 import Button from "./ui/Button";
+import { ProfileUser } from "../model/user";
+import useMe from "../hooks/me";
 
 type Props = {
   user: ProfileUser;

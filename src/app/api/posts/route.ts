@@ -1,18 +1,25 @@
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { getFollowingPostsOf } from "@/service/posts";
-import { getUserByUsername } from "@/service/user";
-import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
+import { withSessionUser } from "../../../util/session";
+import { createPost, getFollowingPostsOf } from "../../../service/posts";
 
-export async function GET(request: Request) {
-  const session = await getServerSession(authOptions);
-  const user = session?.user;
-
-  if (!user) {
-    return new Response("Authentication Error", { status: 401 });
-  }
-
-  return getFollowingPostsOf(user.username).then((data) =>
-    NextResponse.json(data)
+export async function GET() {
+  return withSessionUser(async (user) =>
+    getFollowingPostsOf(user.username) //
+      .then((data) => NextResponse.json(data))
   );
+}
+
+export async function POST(req: NextRequest) {
+  return withSessionUser(async (user) => {
+    const form = await req.formData();
+    const text = form.get("text")?.toString();
+    const file = form.get("file") as Blob;
+
+    if (!text || !file) {
+      return new Response("Bad Request", { status: 400 });
+    }
+
+    return createPost(user.id, text, file) //
+      .then((data) => NextResponse.json(data));
+  });
 }
