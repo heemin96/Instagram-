@@ -1,7 +1,7 @@
 import { useCallback } from "react";
-import { SimplePost } from "@/model/post";
-import { HomeUser } from "@/model/user";
+
 import useSWR, { mutate, useSWRConfig } from "swr";
+import { HomeUser } from "../model/user";
 
 async function updateBookmark(postId: string, bookmark: boolean) {
   return fetch("/api/bookmarks", {

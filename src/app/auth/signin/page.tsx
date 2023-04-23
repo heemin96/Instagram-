@@ -1,9 +1,9 @@
-import Signin from "@/components/Signin";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { getProviders } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { authOptions } from "../../../pages/api/auth/[...nextauth]";
+import SignIn from "../../../components/SignIn";
 
 export const metadata: Metadata = {
   title: "Signin",
@@ -29,7 +29,7 @@ export default async function SignPage({
 
   return (
     <section className="flex justify-center mt-24">
-      <Signin providers={providers} callbackUrl={callbackUrl ?? "/"} />
+      <SignIn providers={providers} callbackUrl={callbackUrl ?? "/"} />
     </section>
   );
 }

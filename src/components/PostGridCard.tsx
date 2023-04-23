@@ -1,6 +1,6 @@
 "use client";
 
-import { SimplePost } from "@/model/post";
+
 import Image from "next/image";
 import React, { useState } from "react";
 import ModalPortal from "./ui/ModalPortal";
@@ -8,6 +8,7 @@ import ModalPortal from "./ui/ModalPortal";
 import PostDetail from "./PostDetail";
 import { signIn, useSession } from "next-auth/react";
 import PostModal from "./PostModal";
+import { SimplePost } from '../model/post';
 
 type Props = {
   post: SimplePost;
